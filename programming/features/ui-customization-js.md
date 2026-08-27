@@ -13,6 +13,8 @@ noTitleIndex: true
 The official UI uses the `.xml` extension to prevent build tools or hot-reload mechanisms (such as Live Server, Five Server, or Hot Module Replacement) from processing or overwriting these files. **Despite the extension, the content is HTML**, not XML.
 In reality, you can use any file extension, provided the browser can correctly retrieve the file's text content.
 
+> In the bottom right corner of the VSCode graphical interface, you can click "Select Language Mode" to switch any file to HTML mode.
+
 You can choose from [legacy UI definition format](#legacy-ui-definition-format) or [new UI definition format](#new-ui-definition-format).
 
 ## Legacy UI Definition Format
@@ -364,23 +366,15 @@ The UI definition accepts external scripts and styles, so you can easily write c
 // Since the 'dynamsoft-barcode-reader-bundle' package
 // has already been imported in the business logic, 
 // importing it again in the UI definition is unnecessary.
-//
-// Some types have been renamed to versions with underscores 
-// to avoid conflicts with variables imported from `exportToUI`. 
-// You can also choose to change the names of the variables imported from `exportToUI` instead.
-import type {
-  CameraEnhancer,
-  CaptureVisionRouter,
-  beep as _beep,
-  vibrate as _vibrate,
-} from 'dynamsoft-barcode-reader-bundle';
+import type * as Types from 'dynamsoft-barcode-reader-bundle';
+type CaptureVisionRouter = Types.CaptureVisionRouter;
+type CameraEnhancer = Types.CameraEnhancer;
 
 const camera = (document.currentScript as any).currentDMCamera as CameraEnhancer;
 
-const { cvRouter, beep, vibrate, handleBarcodeText } = (camera as any).exportToUI as {
+const { beep, vibrate } = (camera as any).exportToUI as (typeof Types);
+const { cvRouter, handleBarcodeText } = (camera as any).exportToUI as {
   cvRouter: CaptureVisionRouter;
-  beep: typeof _beep;
-  vibrate: typeof _vibrate;
   handleBarcodeText: (text: string) => void;
 };
 
