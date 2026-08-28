@@ -364,10 +364,6 @@ The UI definition accepts external scripts and styles, so you can easily write c
 // Since the 'dynamsoft-barcode-reader-bundle' package
 // has already been imported in the business logic, 
 // importing it again in the UI definition is unnecessary.
-//
-// Some types have been renamed to versions with underscores 
-// to avoid conflicts with variables imported from `uiContext`. 
-// You can also choose to change the names of the variables imported from `uiContext` instead.
 import type {
   CameraEnhancer,
   CaptureVisionRouter,
